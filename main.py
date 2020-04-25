@@ -11,3 +11,6 @@ from datetime import datetime
 
 if __name__ =="__main__":
         print("hello")
+
+
+print("용균아 되는지 해볼게게")
