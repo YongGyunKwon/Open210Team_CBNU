@@ -12,8 +12,7 @@ class WindowClass(QMainWindow, form_class) :
         super().__init__()
         self.setupUi(self)
 
-if __name__ == "__main__" :
-    #QApplication : 프로그램을 실행시켜주는 클래스
+if __name__ == "__main__" :    #QApplication : 프로그램을 실행시켜주는 클래스
     app = QApplication(sys.argv)
 
     #WindowClass의 인스턴스 생성

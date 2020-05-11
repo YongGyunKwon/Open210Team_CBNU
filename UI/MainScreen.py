@@ -1,5 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
+from PyQt5.QtCore import *
+from PyQt5.QtGui import *
 from PyQt5 import uic
 
 #UI파일 연결
@@ -8,9 +10,38 @@ form_class = uic.loadUiType("MainScreen.ui")[0]
 
 #화면을 띄우는데 사용되는 Class 선언
 class WindowClass(QMainWindow, form_class) :
+    fname = ()
     def __init__(self) :
         super().__init__()
         self.setupUi(self)
+
+        #파일 선택 버튼에 기능을 연결하는 코드
+        self.SelectFileBtn.clicked.connect(self.PushFileSelButton)
+        self.TransFileBtn.clicked.connect(self.PushTransFileButton)
+        self.DeleteFileBtn.clicked.connect(self.PushDeleteFileButton)
+        self.DeleteFileBtn.setStyleSheet('image:url(Button_UI/DeleteBtn.png); border:0px;')
+
+
+    ##파일 선택 버튼 동작 메서드##
+    def PushFileSelButton(self):
+        self.fname = QFileDialog.getOpenFileName(self)
+        print(self.fname)
+
+    ##파일 변환 버튼 동작 메서드##
+    def PushTransFileButton(self):
+        ###기능 구현 동작과 연결
+        pass
+
+    ##불러온 파일 삭제 동작 메서드
+    def PushDeleteFileButton(self):
+        ###기능 구현 동작과 연결
+        pass
+
+    ##불러온 파일 표시하는 메서드
+    def ShowFile(self):
+        print(self.fname)
+
+        #self.show
 
 if __name__ == "__main__" :
     #QApplication : 프로그램을 실행시켜주는 클래스
