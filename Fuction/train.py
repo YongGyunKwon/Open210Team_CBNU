@@ -18,6 +18,7 @@ def machineLearning():
 
     np.savez(FNAME,train=train,train_labels = train_labels)
 
+
 def resize20(pimg):
     img = cv2.imread(pimg)
     gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
