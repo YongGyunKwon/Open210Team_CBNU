@@ -13,8 +13,8 @@ def resize20(digitImg):
     return thr.reshape(-1,400).astype(np.float32)
 
 def learningDigit():
-    img=cv2.imread('Images/digits.png')
-    gray=cv2.cvtColor(img,cv2.COLOR_RGB2BGRAY)
+    img=cv2.imread('digits.png')
+    gray=cv2.cvtColor(img,cv2.COLOR_BGR2GRAY)
 
     cells=[np.hsplit(row,100) for row in np.vsplit(gray,50)]
     x=np.array(cells)
@@ -43,9 +43,9 @@ def OCR_for_Digits(test,traindata,traindata_labels):
 
 
 def main_1():
-    #learning Digit()
+    learningDigit()
     ocrdata='digits_for_cr.npz'
-    traindata,traindata_labels=loadLearningDigit(ocrdata)
+    traindata, traindata_labels=loadLearningDigit(ocrdata)
     digits=['imgaes/'+str(x)+'.png' for x in range(10)]
 
     print(traindata.shape)
