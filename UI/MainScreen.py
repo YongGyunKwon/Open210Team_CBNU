@@ -1,16 +1,17 @@
 import sys
+import MainUI
 from PyQt5.QtWidgets import *
-from PyQt5.QtCore import *
-from PyQt5.QtGui import *
-from PyQt5 import uic
+#from PyQt5.QtCore import *
+#from PyQt5.QtGui import *
+#from PyQt5 import uic
+
 
 #UI파일 연결
 #단, UI파일은 Python 코드 파일과 같은 디렉토리에 위치해야한다.
-form_class = uic.loadUiType("MainScreen.ui")[0]
+#form_class = uic.loadUiType("MainUI.py")[0]
 
 #화면을 띄우는데 사용되는 Class 선언
-class WindowClass(QMainWindow, form_class) :
-    fname = ()
+class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
     def __init__(self) :
         super().__init__()
         self.setupUi(self)
@@ -24,8 +25,12 @@ class WindowClass(QMainWindow, form_class) :
 
     ##파일 선택 버튼 동작 메서드##
     def PushFileSelButton(self):
-        self.fname = QFileDialog.getOpenFileName(self)
-        print(self.fname)
+        strlen = 0
+        fname = QFileDialog.getOpenFileName(self, 'Open file', '/', "PDF Files (*.pdf)")
+        fname = ''.join(fname).split('/')[-1]
+        strlen = len(fname) - 17
+        self.PDF_FileList.addItem(fname[:strlen])
+        print(self.PDF_FileList.currentItem())
 
     ##파일 변환 버튼 동작 메서드##
     def PushTransFileButton(self):
