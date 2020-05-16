@@ -20,8 +20,8 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         self.SelectFileBtn.clicked.connect(self.PushFileSelButton)
         self.TransFileBtn.clicked.connect(self.PushTransFileButton)
         self.DeleteFileBtn.clicked.connect(self.PushDeleteFileButton)
-        self.DeleteFileBtn.setStyleSheet('image:url(Button_UI/DeleteBtn.png); border:0px;')
-
+        #self.DeleteFileBtn.setStyleSheet('image:url(Button_UI/DeleteBtn.png); border:0px;')
+        #이미지가 안올라가서 주석처리
 
     ##파일 선택 버튼 동작 메서드##
     def PushFileSelButton(self):
