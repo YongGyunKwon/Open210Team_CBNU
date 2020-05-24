@@ -9,7 +9,7 @@ conv = convert_from_bytes(open(r'C:\Users\dydtj\PycharmProjects\Open-Source-Basi
 for con in conv:
     con.save('output.jpg', 'JPEG')
 
-image = cv2.imread("output.jpg")
+image = cv2.imread("output.jpg")   # pdf가 image 파일로 변환완료
 gray = cv2.cvtColor(image,cv2.COLOR_BGR2GRAY) # grayscale
 _,thresh = cv2.threshold(gray,150,255,cv2.THRESH_BINARY_INV) # threshold
 kernel = cv2.getStructuringElement(cv2.MORPH_CROSS,(3,3))
@@ -33,4 +33,4 @@ for contour in contours:
     cv2.rectangle(image,(x,y),(x+w,y+h),(255,0,255),2)
 
 # write original image with added contours to disk
-cv2.imwrite("contoured.jpg", image)
+cv2.imwrite("contoured.jpg", image)  # image 파일에서 변환된 부분 plot 된 최종파일 출력
