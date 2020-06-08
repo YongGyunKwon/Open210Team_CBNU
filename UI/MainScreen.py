@@ -100,12 +100,14 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
     ##파일 변환 버튼 동작 메서드##
     def Push_TransFileButton(self):
-        ###기능 구현 동작과 연결
-        """
-
-        """
         self.SoundType = self.SoundTypeBox.currentText()    # 파일형식선택
-        self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
+        if self.SoundType != "File Format":
+            print()
+            ###기능 구현 동작과 연결
+            """
+            
+            """
+            self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
 
     ##불러온 파일 삭제 동작 메서드##
     def Push_DeleteButton(self):
@@ -126,9 +128,9 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
     ##불러온 파일 표시하는 메서드 -> 파일변환버튼 함수에서 불러와야 될~
     def ShowFile(self):
-        self.Sound_Name = (self.PDF_name[:self.strlen - 4]) + '.' + self.SoundType #C:/Temp/file.WAV
-        #print(self.SoundType)
-        #print(self.Sound_Name)
+        self.Sound_Name = (self.PDF_name[:self.strlen - 4]) + '.' + self.SoundType #file.WAV
+        print(self.SoundType)
+        print(self.Sound_Name)
         self.Sound_FileList.addItem(self.Sound_Name)
         print(self.Sound_FileList.currentItem())
 
