@@ -8,7 +8,7 @@ from UI import *
 
 
 
-
+'''
 if __name__ =="__main__":
         text="hello"
         file_name="test"
@@ -21,3 +21,4 @@ if __name__ =="__main__":
         print("hello")
 
 
+'''

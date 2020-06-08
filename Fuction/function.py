@@ -1,6 +1,8 @@
 from PIL import Image
 from gtts import gTTS
 from pdfminer.layout import LAParams
+from pdfminer.pdfinterp import PDFResourceManager, PDFPageInterpreter
+from pdfminer.pdfpage import PDFPage
 from pytesseract import pytesseract
 import time
 import pygame.mixer
@@ -10,16 +12,20 @@ from io import StringIO
 from io import open
 from urllib.request import urlopen
 import docx2txt
-from Fuction.ocr import *
+#from Fuction.ocr import *
 from pdf2image import convert_from_path
 import fitz
+from pdf2image import convert_from_path, convert_from_bytes
+import cv2
 import numpy
-
-
 
 #pdf to png converter
 #pages is number of pages
 
+#이거는 tessearct 설치하고 tesseract.exe 본인 컴퓨터 경로꺼로 설정
+pytesseract.tesseract_cmd = 'C:/Program Files/Tesseract-OCR/tesseract'
+
+#pdf파일을 png 파일로 변환하는 함수, 완성
 def pdf2png(filename,pages):
     pdffile = filename
     doc = fitz.open(pdffile)
@@ -30,15 +36,20 @@ def pdf2png(filename,pages):
         output = "outfile"+str(i)+".jpg"
         pix.writePNG(output)
 
-#pdf to image converter
+
+
+#pdf to image converter, 완성
 def pdf2img_converter(filename):
     pages= convert_from_path(filename,500)
 
     for pages in pages:
         pages.save('out.jpg','JPEG')
 
-#Image To String 0
-def image_to_string(filename):
+
+
+#Image To String 1 ,이미지를 텍스트로 변환하는 함수, 완성, 이거 구동하기 위해 window tessearct 설치 해야한다
+#이거는 톡방 링크에 있음
+def image_to_string1(filename):
     img=Image.open(filename)
 
     #img2=Image.open(filename)
@@ -50,8 +61,25 @@ def image_to_string(filename):
     print(text)
     return text
 
+#print(image_to_string1('11.PNG'))
+
+#위에꺼랑 같은 기능인데
+#이거로 실행해서 오류나기에 그냥 함수 두기만 할꺼다 (오버플로 떠서)
+def image_to_string2(filename):
+    img=cv2.imread(filename)
+    img_gray = cv2.cvtColor(img, cv2.COLOR_BGR2GRAY)
+    img_result = cv2.GaussianBlur(img_gray, (5, 5), 0)
+    img_result = cv2.medianBlur(img_result, 5)
+    img_result = cv2.bilateralFilter(img_result, 9, 75, 75)
+
+    text=pytesseract.image_to_string(img_result,lang='kor+eng')
+    return text
+
+
+
 
 #text to speech function 0
+#위에서 텍스트로 변환한거를 음성으로 변환하는 함수
 def g_tts(text,file_name,file_type):
     tts=gTTS(text=text,lang='ko')
     save_as=file_name+'.'+file_type
@@ -59,6 +87,7 @@ def g_tts(text,file_name,file_type):
 
 
 #play voice 0
+#변환된 음성파일 실행 근데 ui에 없어가지고 버튼 만들면 이거 쓰면됨
 def play_file(filename):
     pygame.mixer.init()
     pygame.mixer.music.load(filename)
@@ -66,7 +95,30 @@ def play_file(filename):
     time.sleep(50)
     pygame.mixer.music.stop()
 
+'''
+def pdfparser(data):
 
+    fp = file(data, 'rb')
+    rsrcmgr = PDFResourceManager()
+    retstr = StringIO()
+    codec = 'utf-8'
+    laparams = LAParams()
+    device = TextConverter(rsrcmgr, retstr, codec=codec, laparams=laparams)
+    # Create a PDF interpreter object.
+    interpreter = PDFPageInterpreter(rsrcmgr, device)
+    # Process each page contained in the document.
+
+    for page in PDFPage.get_pages(fp):
+        interpreter.process_page(page)
+        data =  retstr.getvalue()
+
+    print(data)
+
+
+'''
+
+
+#기능고장 / 이거 안되면 위에 처럼 이미지 변환해서 하는 차선책으로 생각
 def read_pdf_file(pdfFile):
     rsrcmgr=PDFResourceManager()
     retstr=StringIO()
@@ -79,11 +131,15 @@ def read_pdf_file(pdfFile):
     retstr.close()
     return content
 
+#test1=read_pdf_file('Task8_2017038106.pdf')
+#print(test1)
 
 # pdf_file=open("__filename__","rb")
 # contents=read_pdf_file(pdf_file)
 # contents is text value.
 
+#pdf url로도 열어지니까 일단 구현은 해놨는데
+#우리 기능에 없으니까 장식용
 def read_pdf_url(pdfurl):
     rsrcmgr = PDFResourceManager()
     retstr = StringIO()
@@ -100,24 +156,11 @@ def read_pdf_url(pdfurl):
 
 
 #docx_to_text 0
+#docx를 텍스트를 변환 이거는 완료
+
 def read_docx_file(docxfile):
     text=docx2txt.process(docxfile)
 
     return text
 
 
-#pdf2png('../Task8_2017038106.pdf')
-#pdf2img_converter('Task8_2017038106.pdf')
-
-#pdf2png('Task8_2017038106.pdf',4)
-
-pytesseract.pytesseract.tesseract_cmd = 'C:\\Program Files (x86)\\Tesseract-OCR\\tesseract.exe'
-
-
-image_to_string('outfile0.jpg')
-#a=read_docx_file(r'C:\Users\ygkwo\PycharmProjects\Open210Team_CBNU\Fuction\test1.docx')
-#g_tts(a,'test1','mp3')
-
-#print(a)
-
-#play_file('test1.mp3')
