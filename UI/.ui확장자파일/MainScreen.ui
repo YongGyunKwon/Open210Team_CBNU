@@ -10,7 +10,7 @@
     <x>0</x>
     <y>0</y>
     <width>785</width>
-    <height>454</height>
+    <height>455</height>
    </rect>
   </property>
   <property name="sizePolicy">
@@ -66,9 +66,9 @@
   <widget class="QPushButton" name="TransFileBtn">
    <property name="geometry">
     <rect>
-     <x>340</x>
+     <x>350</x>
      <y>220</y>
-     <width>111</width>
+     <width>91</width>
      <height>40</height>
     </rect>
    </property>
@@ -87,9 +87,9 @@
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
@@ -114,18 +114,18 @@
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
@@ -152,9 +152,9 @@
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
@@ -179,18 +179,18 @@
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
@@ -217,9 +217,9 @@
       <colorrole role="Button">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
@@ -244,18 +244,18 @@
       <colorrole role="Base">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
       <colorrole role="Window">
        <brush brushstyle="SolidPattern">
         <color alpha="255">
-         <red>63</red>
-         <green>102</green>
-         <blue>139</blue>
+         <red>64</red>
+         <green>74</green>
+         <blue>86</blue>
         </color>
        </brush>
       </colorrole>
@@ -276,17 +276,19 @@
    </property>
    <property name="styleSheet">
     <string notr="true">
-color: rgb(255, 255, 255);
-background-color: rgb(63, 102, 139);</string>
+image: url(:/Main/icon/변환아이콘.png)</string>
    </property>
    <property name="text">
-    <string>-&gt;</string>
+    <string/>
    </property>
    <property name="autoDefault">
-    <bool>true</bool>
+    <bool>false</bool>
+   </property>
+   <property name="default">
+    <bool>false</bool>
    </property>
    <property name="flat">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QLabel" name="label">
@@ -340,26 +342,45 @@ background-color: rgb(63, 102, 139);</string>
   <widget class="QPushButton" name="DeleteFileBtn">
    <property name="geometry">
     <rect>
-     <x>70</x>
-     <y>110</y>
-     <width>28</width>
-     <height>28</height>
+     <x>80</x>
+     <y>100</y>
+     <width>41</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>ArrowCursor</cursorShape>
    </property>
-   <property name="styleSheet">
-    <string notr="true">background-color: rgb(63, 102, 139);</string>
+   <property name="autoFillBackground">
+    <bool>false</bool>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../source.qrc">
+     <normaloff>:/Main/ButtonImage/DeleteIMG2.png</normaloff>:/Main/ButtonImage/DeleteIMG2.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>30</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="autoRepeat">
+    <bool>false</bool>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
    </property>
    <property name="default">
     <bool>false</bool>
    </property>
    <property name="flat">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QListWidget" name="PDF_FileList">
@@ -393,6 +414,9 @@ background-color: rgb(63, 102, 139);</string>
      <height>181</height>
     </rect>
    </property>
+   <property name="styleSheet">
+    <string notr="true">color: rgb(255, 255, 255);</string>
+   </property>
    <property name="dragDropMode">
     <enum>QAbstractItemView::InternalMove</enum>
    </property>
@@ -423,7 +447,7 @@ background-color: rgb(63, 102, 139);</string>
    </item>
    <item>
     <property name="text">
-     <string>DOXC</string>
+     <string>DOCX</string>
     </property>
    </item>
    <item>
@@ -506,25 +530,41 @@ background-color: rgb(63, 102, 139);</string>
    <property name="geometry">
     <rect>
      <x>30</x>
-     <y>110</y>
-     <width>28</width>
-     <height>28</height>
+     <y>100</y>
+     <width>41</width>
+     <height>41</height>
     </rect>
    </property>
    <property name="cursor">
     <cursorShape>ArrowCursor</cursorShape>
    </property>
    <property name="styleSheet">
-    <string notr="true">background-color: rgb(63, 102, 139);</string>
+    <string notr="true"/>
    </property>
    <property name="text">
     <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../source.qrc">
+     <normaloff>:/Main/ButtonImage/AddIMG2.png</normaloff>:/Main/ButtonImage/AddIMG2.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>30</width>
+     <height>30</height>
+    </size>
+   </property>
+   <property name="checkable">
+    <bool>false</bool>
+   </property>
+   <property name="autoDefault">
+    <bool>false</bool>
    </property>
    <property name="default">
     <bool>false</bool>
    </property>
    <property name="flat">
-    <bool>false</bool>
+    <bool>true</bool>
    </property>
   </widget>
   <widget class="QTextBrowser" name="SavePathEDT">
@@ -532,7 +572,7 @@ background-color: rgb(63, 102, 139);</string>
     <rect>
      <x>160</x>
      <y>400</y>
-     <width>301</width>
+     <width>461</width>
      <height>30</height>
     </rect>
    </property>
@@ -552,9 +592,9 @@ background-color: rgb(63, 102, 139);</string>
   <widget class="QLabel" name="label_2">
    <property name="geometry">
     <rect>
-     <x>0</x>
+     <x>10</x>
      <y>10</y>
-     <width>161</width>
+     <width>81</width>
      <height>71</height>
     </rect>
    </property>
@@ -568,7 +608,7 @@ background-color: rgb(63, 102, 139);</string>
   <widget class="QLabel" name="label_4">
    <property name="geometry">
     <rect>
-     <x>130</x>
+     <x>90</x>
      <y>30</y>
      <width>441</width>
      <height>41</height>

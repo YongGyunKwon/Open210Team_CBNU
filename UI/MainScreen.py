@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 import MainUI
+from Fuction.function import *
 
 """
 A. 변환후 저장 경로가 반환된다면?
@@ -36,7 +37,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
         #파일 선택 버튼에 기능을 연결하는 코드
         self.AddFileBtn.clicked.connect(self.Push_AddButton)
-        self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
+        #self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
         self.DeleteFileBtn.clicked.connect(self.Push_DeleteButton)
         self.Save_path_setting.clicked.connect(self.SavePath)
 
@@ -52,12 +53,14 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
             QPushButton:hover{image:url(ButtonImage/NDeleteIMG.png); border:0px;}
             ''')
 
-    ##파일 추가 버튼 동작 메서드##
+    ##파일 추가 버튼 동작 메서드## #완료
+    #FilePath 라는 변수안에 경로 추가 되있음
     def Push_AddButton(self):
         err = self.Select_FileType()
         if err:
             self.PDF_FileList.addItem(self.PDF_name[:self.strlen])
             print(self.PDF_FileList.currentItem())
+        print(self.File_Path)
 
     ##시각 파일의 형식에 따른 처리##
     def Select_FileType(self):
@@ -70,7 +73,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
                 return 0
             self.PDF_name = ''.join(self.File_Path).split('/')[-1]
             self.strlen = len(self.PDF_name) - self.num
-        elif self.FileType == "DOXC":
+        elif self.FileType == "DOCX":
             self.num = 19
             self.File_Path += QFileDialog.getOpenFileName(self, 'Open file', '/', "DOCX Files (*.docx)")
             if self.File_Path[-1] == '':
@@ -99,17 +102,66 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         return 1
 
     ##파일 변환 버튼 동작 메서드##
+
     def Push_TransFileButton(self):
         self.SoundType = self.SoundTypeBox.currentText()    # 파일형식선택
         if self.SoundType != "File Format":
-            print()
+
             ###기능 구현 동작과 연결
             """
-            
             """
+            if(self.File_Path[1]=='PDF Files (*.pdf)'):
+
+                print(self.File_Path[0])
+                transtext = read_docx_file(self.File_Path[0])
+                print(transtext)
+                transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
+                print(transpath)
+
+                g_tts(transtext, transpath, self.SoundType)
+
+
+            elif(self.File_Path[1]=='JPG Files (*.jpg)'):
+                print("This is jpg")
+                print(self.File_Path[0])
+                transtext1=image_to_string1(self.File_Path[0])
+                print(transtext1)
+                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                print(transpath1)
+
+                g_tts(transtext1, transpath1, self.SoundType)
+
+
+            elif (self.File_Path[1] == 'PNG Files (*.png)'):
+                print("This is png")
+
+                print(self.File_Path[0])
+                transtext1 = image_to_string1(self.File_Path[0])
+                print(transtext1)
+                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                print(transpath1)
+
+                g_tts(transtext1, transpath1, self.SoundType)
+
+
+
+            #docx 완료
+            elif(self.File_Path[1]=="DOCX Files (*.docx)"):
+
+                print(self.File_Path[0])
+                transtext=read_docx_file(self.File_Path[0])
+                print(transtext)
+                transpath=self.Sound_Path+"/"+self.PDF_name[:self.strlen - 5]
+                print(transpath)
+
+                g_tts(transtext,transpath,self.SoundType)
+
             self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
 
-    ##불러온 파일 삭제 동작 메서드##
+
+
+
+    ##불러온 파일 삭제 동작 메서드## #완료
     def Push_DeleteButton(self):
         if self.File_Path == []:
             return
