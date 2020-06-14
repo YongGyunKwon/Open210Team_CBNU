@@ -18,6 +18,8 @@ import fitz
 from pdf2image import convert_from_path, convert_from_bytes
 import cv2
 import numpy
+import PyPDF2
+
 
 #pdf to png converter
 #pages is number of pages
@@ -44,8 +46,6 @@ def pdf2img_converter(filename):
 
     for pages in pages:
         pages.save('out.jpg','JPEG')
-
-
 
 #Image To String 1 ,이미지를 텍스트로 변환하는 함수, 완성, 이거 구동하기 위해 window tessearct 설치 해야한다
 #이거는 톡방 링크에 있음
@@ -74,8 +74,6 @@ def image_to_string2(filename):
 
     text=pytesseract.image_to_string(img_result,lang='kor+eng')
     return text
-
-
 
 
 #text to speech function 0
@@ -110,12 +108,37 @@ def pdfparser(data):
 
     for page in PDFPage.get_pages(fp):
         interpreter.process_page(page)
-        data =  retstr.getvalue()
+        data = retstr.getvalue()
 
     print(data)
 
 
+pdfparser("tester.pdf")
 '''
+
+#영어만 추출 가능 , 한국어 추출 x
+def read_pdf_file1(pdfFile):
+    file=open(pdfFile,'rb')
+    fileReader=PyPDF2.PdfFileReader(file)
+
+    #fileReader.pageMode('utf-8')
+
+    #fileReader.documentInfo
+    #전체 페이지수 출력
+    fulltext=""
+    #print(fileReader.numPages)
+    pagecounter=int(fileReader.numPages)
+    for i in range(0,pagecounter):
+        pageObj=fileReader.getPage(i)
+        text=pageObj.extractText()
+        #print(text)
+        fulltext+=text
+
+    return fulltext
+
+
+
+#print(read_pdf_file1("./tester.pdf"))
 
 
 #기능고장 / 이거 안되면 위에 처럼 이미지 변환해서 하는 차선책으로 생각
@@ -139,7 +162,6 @@ def read_pdf_file(pdfFile):
 # contents is text value.
 
 #pdf url로도 열어지니까 일단 구현은 해놨는데
-#우리 기능에 없으니까 장식용
 def read_pdf_url(pdfurl):
     rsrcmgr = PDFResourceManager()
     retstr = StringIO()
@@ -152,11 +174,6 @@ def read_pdf_url(pdfurl):
     retstr.close()
     return content
 
-#urlopen("urladress")
-
-
-#docx_to_text 0
-#docx를 텍스트를 변환 이거는 완료
 
 def read_docx_file(docxfile):
     text=docx2txt.process(docxfile)
