@@ -45,6 +45,6 @@ def Image_Converter(filename):
         cv2.imwrite(name1, image)  # image 파일에서 변환된 부분 plot 된 최종파일 출력
 
 
-a= os.path.abspath('Task8_2017038106.pdf')
+a= os.path.abspath('./tester.pdf')
 
 Image_Converter(a)

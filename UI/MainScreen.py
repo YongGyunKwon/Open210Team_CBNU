@@ -37,7 +37,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
         #파일 선택 버튼에 기능을 연결하는 코드
         self.AddFileBtn.clicked.connect(self.Push_AddButton)
-        self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
+        #self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
         self.DeleteFileBtn.clicked.connect(self.Push_DeleteButton)
         self.Save_path_setting.clicked.connect(self.SavePath)
 
@@ -73,7 +73,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
                 return 0
             self.PDF_name = ''.join(self.File_Path).split('/')[-1]
             self.strlen = len(self.PDF_name) - self.num
-        elif self.FileType == "DOXC":
+        elif self.FileType == "DOCX":
             self.num = 19
             self.File_Path += QFileDialog.getOpenFileName(self, 'Open file', '/', "DOCX Files (*.docx)")
             if self.File_Path[-1] == '':
@@ -108,12 +108,11 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         if self.SoundType != "File Format":
 
             ###기능 구현 동작과 연결
-            """
-            """
+
             if(self.File_Path[1]=='PDF Files (*.pdf)'):
 
                 print(self.File_Path[0])
-                transtext = read_docx_file(self.File_Path[0])
+                transtext = read_pdf_file1(self.File_Path[0])
                 print(transtext)
                 transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
                 print(transpath)

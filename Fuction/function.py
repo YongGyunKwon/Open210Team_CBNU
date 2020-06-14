@@ -141,7 +141,6 @@ def read_pdf_file1(pdfFile):
 #print(read_pdf_file1("./tester.pdf"))
 
 
-#기능고장 / 이거 안되면 위에 처럼 이미지 변환해서 하는 차선책으로 생각
 def read_pdf_file(pdfFile):
     rsrcmgr=PDFResourceManager()
     retstr=StringIO()
@@ -153,13 +152,6 @@ def read_pdf_file(pdfFile):
     content=retstr.getvalue()
     retstr.close()
     return content
-
-#test1=read_pdf_file('Task8_2017038106.pdf')
-#print(test1)
-
-# pdf_file=open("__filename__","rb")
-# contents=read_pdf_file(pdf_file)
-# contents is text value.
 
 #pdf url로도 열어지니까 일단 구현은 해놨는데
 def read_pdf_url(pdfurl):
