@@ -1,7 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 import MainUI
-from Fuction.function import *
+#from Fuction.function import *
 
 """
 A. 변환후 저장 경로가 반환된다면?
@@ -41,17 +41,6 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         self.DeleteFileBtn.clicked.connect(self.Push_DeleteButton)
         self.Save_path_setting.clicked.connect(self.SavePath)
 
-        ##버튼이미지##
-        self.AddFileBtn.setStyleSheet(
-            '''
-            QPushButton{image:url(ButtonImage/AddIMG.png); border:0px};
-            QPushButton:hover{image:url(ButtonImage/NAddIMG.png); border:0px;}
-            ''')
-        self.DeleteFileBtn.setStyleSheet(
-            '''
-            QPushButton{image:url(ButtonImage/DeleteIMG.png); border:0px;}
-            QPushButton:hover{image:url(ButtonImage/NDeleteIMG.png); border:0px;}
-            ''')
 
     ##파일 추가 버튼 동작 메서드## #완료
     #FilePath 라는 변수안에 경로 추가 되있음
@@ -102,14 +91,12 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         return 1
 
     ##파일 변환 버튼 동작 메서드##
-
+    """
     def Push_TransFileButton(self):
         self.SoundType = self.SoundTypeBox.currentText()    # 파일형식선택
         if self.SoundType != "File Format":
 
             ###기능 구현 동작과 연결
-            """
-            """
             if(self.File_Path[1]=='PDF Files (*.pdf)'):
 
                 print(self.File_Path[0])
@@ -157,7 +144,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
                 g_tts(transtext,transpath,self.SoundType)
 
             self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
-
+    """
 
 
 
@@ -166,6 +153,8 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         if self.File_Path == []:
             return
         item = self.PDF_FileList.currentItem()
+        if(item == None):
+            return
         N = 2 * self.PDF_FileList.currentRow() #선택된 항목이 몇 번째인지 반환
         self.PDF_FileList.takeItem(self.PDF_FileList.row(item)) #ListWidget에서 삭제
         del self.File_Path[N] #리스트에서 파일 삭제
