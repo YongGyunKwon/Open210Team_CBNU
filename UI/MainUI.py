@@ -27,8 +27,8 @@ class Ui_Dialog(object):
         Dialog.setLayoutDirection(QtCore.Qt.LeftToRight)
         Dialog.setAutoFillBackground(False)
         Dialog.setStyleSheet("background-color: rgb(64, 74, 86);")
-        Dialog.setSizeGripEnabled(False)
-        Dialog.setModal(False)
+        #Dialog.setSizeGripEnabled(False)
+        #Dialog.setModal(False)
         self.progressBar = QtWidgets.QProgressBar(Dialog)
         self.progressBar.setGeometry(QtCore.QRect(30, 350, 291, 23))
         self.progressBar.setProperty("value", 24)
@@ -242,7 +242,6 @@ class Ui_Dialog(object):
         self.SoundTypeBox.setItemText(1, _translate("Dialog", "MP3"))
         self.SoundTypeBox.setItemText(2, _translate("Dialog", "WAV"))
         self.label_4.setText(_translate("Dialog", "충북대학교 소프트웨어학과"))
-
 import source
 
 

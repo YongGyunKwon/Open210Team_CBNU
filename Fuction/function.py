@@ -117,6 +117,7 @@ pdfparser("tester.pdf")
 '''
 
 #영어만 추출 가능 , 한국어 추출 x
+
 def read_pdf_file1(pdfFile):
     file=open(pdfFile,'rb')
     fileReader=PyPDF2.PdfFileReader(file)
@@ -152,6 +153,8 @@ def read_pdf_file(pdfFile):
     content=retstr.getvalue()
     retstr.close()
     return content
+
+
 
 #pdf url로도 열어지니까 일단 구현은 해놨는데
 def read_pdf_url(pdfurl):

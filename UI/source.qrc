@@ -1,9 +1,10 @@
 <RCC>
   <qresource prefix="Main">
+    <file>ButtonImage/AddIMG2.png</file>
+    <file>ButtonImage/DeleteIMG2.png</file>
+    <file>icon/변환아이콘.png</file>
     <file>icon/충북대(흰배경).png</file>
     <file>icon/충북대마크(배경 X).png</file>
-    <file>icon/충북대소프트웨어학과(배경 X).png</file>
-    <file>icon/충북대소프트웨어학과.png</file>
     <file>icon/시각파일아이콘.png</file>
     <file>icon/음성파일아이콘.png</file>
   </qresource>

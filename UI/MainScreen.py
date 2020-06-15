@@ -37,7 +37,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
         #파일 선택 버튼에 기능을 연결하는 코드
         self.AddFileBtn.clicked.connect(self.Push_AddButton)
-        #self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
+        self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
         self.DeleteFileBtn.clicked.connect(self.Push_DeleteButton)
         self.Save_path_setting.clicked.connect(self.SavePath)
 
@@ -102,7 +102,6 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         return 1
 
     ##파일 변환 버튼 동작 메서드##
-
     def Push_TransFileButton(self):
         self.SoundType = self.SoundTypeBox.currentText()    # 파일형식선택
         if self.SoundType != "File Format":
@@ -142,8 +141,6 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
                 g_tts(transtext1, transpath1, self.SoundType)
 
-
-
             #docx 완료
             elif(self.File_Path[1]=="DOCX Files (*.docx)"):
 
@@ -158,19 +155,18 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
             self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
 
 
-
-
     ##불러온 파일 삭제 동작 메서드## #완료
     def Push_DeleteButton(self):
         if self.File_Path == []:
             return
         item = self.PDF_FileList.currentItem()
-        N = 2 * self.PDF_FileList.currentRow() #선택된 항목이 몇 번째인지 반환
-        self.PDF_FileList.takeItem(self.PDF_FileList.row(item)) #ListWidget에서 삭제
-        del self.File_Path[N] #리스트에서 파일 삭제
-        del self.File_Path[N] #리스트에서 파일의 확장자 삭제
+        if (item == None):
+            return
+        N = 2 * self.PDF_FileList.currentRow()  # 선택된 항목이 몇 번째인지 반환
+        self.PDF_FileList.takeItem(self.PDF_FileList.row(item))  # ListWidget에서 삭제
+        del self.File_Path[N]  # 리스트에서 파일 삭제
+        del self.File_Path[N]  # 리스트에서 파일의 확장자 삭제
         ###기능 구현 동작과 연결
-
 
     def SavePath(self):
      self.Sound_Path = QFileDialog.getExistingDirectory(self, 'Open Folder', 'c:/')     # Sound_Path에 저장할 경로 저장
@@ -184,6 +180,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         print(self.Sound_Name)
         self.Sound_FileList.addItem(self.Sound_Name)
         print(self.Sound_FileList.currentItem())
+
 
 if __name__ == "__main__" :
     #QApplication : 프로그램을 실행시켜주는 클래스
