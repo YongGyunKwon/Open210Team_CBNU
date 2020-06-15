@@ -627,6 +627,35 @@ background-color: rgb(63, 102, 139);</string>
     <string>충북대학교 소프트웨어학과</string>
    </property>
   </widget>
+  <widget class="QPushButton" name="HowToBtn">
+   <property name="geometry">
+    <rect>
+     <x>730</x>
+     <y>20</y>
+     <width>41</width>
+     <height>41</height>
+    </rect>
+   </property>
+   <property name="styleSheet">
+    <string notr="true"/>
+   </property>
+   <property name="text">
+    <string/>
+   </property>
+   <property name="icon">
+    <iconset resource="../source.qrc">
+     <normaloff>:/Main/icon/QuestionMark.png</normaloff>:/Main/icon/QuestionMark.png</iconset>
+   </property>
+   <property name="iconSize">
+    <size>
+     <width>28</width>
+     <height>28</height>
+    </size>
+   </property>
+   <property name="flat">
+    <bool>true</bool>
+   </property>
+  </widget>
  </widget>
  <resources>
   <include location="../source.qrc"/>

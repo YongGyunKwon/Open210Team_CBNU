@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 
-# Form implementation generated from reading ui file 'C:\Users\ehdrb\PycharmProjects\Open210Team_CBNU\UI\.ui확장자파일\MainScreen.ui'
+# Form implementation generated from reading ui file '.ui확장자파일\MainScreen.ui'
 #
 # Created by: PyQt5 UI code generator 5.14.2
 #
@@ -27,8 +27,9 @@ class Ui_Dialog(object):
         Dialog.setLayoutDirection(QtCore.Qt.LeftToRight)
         Dialog.setAutoFillBackground(False)
         Dialog.setStyleSheet("background-color: rgb(64, 74, 86);")
-        #Dialog.setSizeGripEnabled(False)
-        #Dialog.setModal(False)
+        Dialog.setFixedSize(785, 455)
+        # Dialog.setSizeGripEnabled(False)
+        # Dialog.setModal(False)
         self.progressBar = QtWidgets.QProgressBar(Dialog)
         self.progressBar.setGeometry(QtCore.QRect(30, 350, 291, 23))
         self.progressBar.setProperty("value", 24)
@@ -223,6 +224,16 @@ class Ui_Dialog(object):
         self.label_4.setFont(font)
         self.label_4.setStyleSheet("color: rgb(255, 255, 255);")
         self.label_4.setObjectName("label_4")
+        self.HowToBtn = QtWidgets.QPushButton(Dialog)
+        self.HowToBtn.setGeometry(QtCore.QRect(730, 20, 41, 41))
+        self.HowToBtn.setStyleSheet("")
+        self.HowToBtn.setText("")
+        icon3 = QtGui.QIcon()
+        icon3.addPixmap(QtGui.QPixmap(":/Main/icon/QuestionMark.png"), QtGui.QIcon.Normal, QtGui.QIcon.Off)
+        self.HowToBtn.setIcon(icon3)
+        self.HowToBtn.setIconSize(QtCore.QSize(28, 28))
+        self.HowToBtn.setFlat(True)
+        self.HowToBtn.setObjectName("HowToBtn")
 
         self.retranslateUi(Dialog)
         QtCore.QMetaObject.connectSlotsByName(Dialog)

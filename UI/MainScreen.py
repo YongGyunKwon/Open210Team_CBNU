@@ -1,6 +1,8 @@
 import sys
 from PyQt5.QtWidgets import *
 import MainUI
+from PyQt5.QtGui import *
+from PyQt5 import QtCore, QtGui, QtWidgets
 #from Fuction.function import *
 
 """
@@ -37,15 +39,17 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
         #파일 선택 버튼에 기능을 연결하는 코드
         self.AddFileBtn.clicked.connect(self.Push_AddButton)
-        #self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
+        self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
         self.DeleteFileBtn.clicked.connect(self.Push_DeleteButton)
         self.Save_path_setting.clicked.connect(self.SavePath)
-
+        self.HowToBtn.clicked.connect(self.HowTo)
 
     ##파일 추가 버튼 동작 메서드## #완료
     #FilePath 라는 변수안에 경로 추가 되있음
     def Push_AddButton(self):
         err = self.Select_FileType()
+        if self.FileType == "File Format":
+            self.warning_1()
         if err:
             self.PDF_FileList.addItem(self.PDF_name[:self.strlen])
             print(self.PDF_FileList.currentItem())
@@ -58,6 +62,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
             self.num = 17
             self.File_Path += QFileDialog.getOpenFileName(self, 'Open file', '/', "PDF Files (*.pdf)")
             if self.File_Path[-1] == '':
+                del self.File_Path[-1]
                 del self.File_Path[-1]
                 return 0
             self.PDF_name = ''.join(self.File_Path).split('/')[-1]
@@ -91,62 +96,13 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         return 1
 
     ##파일 변환 버튼 동작 메서드##
-    """
+
     def Push_TransFileButton(self):
         self.SoundType = self.SoundTypeBox.currentText()    # 파일형식선택
-        if self.SoundType != "File Format":
-
-            ###기능 구현 동작과 연결
-            if(self.File_Path[1]=='PDF Files (*.pdf)'):
-
-                print(self.File_Path[0])
-                transtext = read_docx_file(self.File_Path[0])
-                print(transtext)
-                transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
-                print(transpath)
-
-                g_tts(transtext, transpath, self.SoundType)
-
-
-            elif(self.File_Path[1]=='JPG Files (*.jpg)'):
-                print("This is jpg")
-                print(self.File_Path[0])
-                transtext1=image_to_string1(self.File_Path[0])
-                print(transtext1)
-                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                print(transpath1)
-
-                g_tts(transtext1, transpath1, self.SoundType)
-
-
-            elif (self.File_Path[1] == 'PNG Files (*.png)'):
-                print("This is png")
-
-                print(self.File_Path[0])
-                transtext1 = image_to_string1(self.File_Path[0])
-                print(transtext1)
-                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                print(transpath1)
-
-                g_tts(transtext1, transpath1, self.SoundType)
-
-
-
-            #docx 완료
-            elif(self.File_Path[1]=="DOCX Files (*.docx)"):
-
-                print(self.File_Path[0])
-                transtext=read_docx_file(self.File_Path[0])
-                print(transtext)
-                transpath=self.Sound_Path+"/"+self.PDF_name[:self.strlen - 5]
-                print(transpath)
-
-                g_tts(transtext,transpath,self.SoundType)
-
-            self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
-    """
-
-
+        if self.SoundType == "File Format":
+            self.warning_2()
+        if self.Sound_Path == "":
+            self.warning_3()
 
     ##불러온 파일 삭제 동작 메서드## #완료
     def Push_DeleteButton(self):
@@ -164,7 +120,6 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
 
     def SavePath(self):
      self.Sound_Path = QFileDialog.getExistingDirectory(self, 'Open Folder', 'c:/')     # Sound_Path에 저장할 경로 저장
-     #print(self.Sound_Path)
      self.SavePathEDT.setPlainText(self.Sound_Path)     # 설정된 저장경로를 LineEdit 박스에 표시
 
     ##불러온 파일 표시하는 메서드 -> 파일변환버튼 함수에서 불러와야 될~
@@ -174,6 +129,41 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         print(self.Sound_Name)
         self.Sound_FileList.addItem(self.Sound_Name)
         print(self.Sound_FileList.currentItem())
+
+    ##경고문 띄우기
+    def warning_1(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText("문서파일의 형식을 정해주십시오")
+        msg.setWindowTitle("Warning")
+        msg.exec_()
+    def warning_2(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText("음성파일의 형식을 정해주십시오")
+        msg.setWindowTitle("Warning")
+        msg.exec_()
+    def warning_3(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Warning)
+        msg.setText("저장경로를 설정해 정해주십시오")
+        msg.setWindowTitle("Warning")
+        msg.exec_()
+
+    #사용방법
+    def HowTo(self):
+        msg = QMessageBox()
+        msg.setIcon(QMessageBox.Question)
+        msg.setText("""
+        1. 변환할 문서파일의 형식 설정
+        2. 변환될 음성파일의 형식과 저장할 경로 설정
+        3. + 버튼 클릭해 변환하려는 문서파일 추가
+        4. 문서파일이 잘못 추가됐을 떄 - 버튼을 클릭해 삭제
+        5. 가운데 <-> 변환버튼 클릭해 변환
+        6. 변환의 검사가 필요하면 미리보기 버튼 클릭
+        """)
+        msg.setWindowTitle("HowTo")
+        msg.exec_()
 
 if __name__ == "__main__" :
     #QApplication : 프로그램을 실행시켜주는 클래스

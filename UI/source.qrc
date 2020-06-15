@@ -1,5 +1,6 @@
 <RCC>
   <qresource prefix="Main">
+    <file>icon/QuestionMark.png</file>
     <file>ButtonImage/AddIMG2.png</file>
     <file>ButtonImage/DeleteIMG2.png</file>
     <file>icon/변환아이콘.png</file>
