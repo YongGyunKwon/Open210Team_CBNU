@@ -47,6 +47,10 @@ def pdf2img_converter(filename):
     for pages in pages:
         pages.save('out.jpg','JPEG')
 
+
+
+
+
 #Image To String 1 ,이미지를 텍스트로 변환하는 함수, 완성, 이거 구동하기 위해 window tessearct 설치 해야한다
 #이거는 톡방 링크에 있음
 def image_to_string1(filename):
