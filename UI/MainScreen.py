@@ -1,8 +1,8 @@
 import sys
 from PyQt5.QtWidgets import *
 import MainUI
-from Fuction.function import *
-from Fuction.Image_Converter  import *
+#from Fuction.function import *
+#from Fuction.Image_Converter  import *
 """
 A. 변환후 저장 경로가 반환된다면?
 1) 사운드 파일의 이름은 사용자 마음대로 설정할 수 있음(추후 시간있을 때 구현)
@@ -40,7 +40,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         self.TransFileBtn.clicked.connect(self.Push_TransFileButton)
         self.DeleteFileBtn.clicked.connect(self.Push_DeleteButton)
         self.Save_path_setting.clicked.connect(self.SavePath)
-        self.PreviewButton.clicked.connect(self.Preview)
+        #self.PreviewButton.clicked.connect(self.Preview)
         self.HowToBtn.clicked.connect(self.HowTo)
 
     ##파일 추가 버튼 동작 메서드## #완료
@@ -101,52 +101,52 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog) :
         if self.Sound_Path == "":
             self.warning_3()
 
-            ###기능 구현 동작과 연결
-            if(self.File_Path[1]=='PDF Files (*.pdf)'):
+        ###기능 구현 동작과 연결
+        if(self.File_Path[1]=='PDF Files (*.pdf)'):
+            print(self.File_Path[0])
+            transtext = read_pdf_file1(self.File_Path[0])
+            print(transtext)
+            transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
+            print(transpath)
 
-                print(self.File_Path[0])
-                transtext = read_pdf_file1(self.File_Path[0])
-                print(transtext)
-                transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
-                print(transpath)
-
-                g_tts(transtext, transpath, self.SoundType)
-
-
-            elif(self.File_Path[1]=='JPG Files (*.jpg)'):
-                print("This is jpg")
-                print(self.File_Path[0])
-                transtext1=image_to_string1(self.File_Path[0])
-                print(transtext1)
-                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                print(transpath1)
-
-                g_tts(transtext1, transpath1, self.SoundType)
+            g_tts(transtext, transpath, self.SoundType)
 
 
-            elif (self.File_Path[1] == 'PNG Files (*.png)'):
-                print("This is png")
+        elif(self.File_Path[1]=='JPG Files (*.jpg)'):
+            print("This is jpg")
 
-                print(self.File_Path[0])
-                transtext1 = image_to_string1(self.File_Path[0])
-                print(transtext1)
-                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                print(transpath1)
+            print(self.File_Path[0])
+            transtext1=image_to_string1(self.File_Path[0])
+            print(transtext1)
+            transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+            print(transpath1)
 
-                g_tts(transtext1, transpath1, self.SoundType)
+            g_tts(transtext1, transpath1, self.SoundType)
+
+
+        elif (self.File_Path[1] == 'PNG Files (*.png)'):
+            print("This is png")
+
+            print(self.File_Path[0])
+            transtext1 = image_to_string1(self.File_Path[0])
+            print(transtext1)
+            transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+            print(transpath1)
+
+            g_tts(transtext1, transpath1, self.SoundType)
 
             #docx 완료
-            elif(self.File_Path[1]=="DOCX Files (*.docx)"):
+        elif(self.File_Path[1]=="DOCX Files (*.docx)"):
 
-                print(self.File_Path[0])
-                transtext=read_docx_file(self.File_Path[0])
-                print(transtext)
-                transpath=self.Sound_Path+"/"+self.PDF_name[:self.strlen - 5]
-                print(transpath)
+            print(self.File_Path[0])
+            transtext=read_docx_file(self.File_Path[0])
+            print(transtext)
+            transpath=self.Sound_Path+"/"+self.PDF_name[:self.strlen - 5]
+            print(transpath)
 
-                g_tts(transtext,transpath,self.SoundType)
+            g_tts(transtext,transpath,self.SoundType)
 
-            self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
+        self.ShowFile()     # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
 
 
     ##불러온 파일 삭제 동작 메서드## #완료
