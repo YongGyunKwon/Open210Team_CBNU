@@ -86,7 +86,7 @@ def g_tts(text,file_name,file_type):
     tts=gTTS(text=text,lang='ko')
     save_as=file_name+'.'+file_type
     tts.save(save_as)
-
+    print("This is TTS")
 
 #play voice 0
 #변환된 음성파일 실행 근데 ui에 없어가지고 버튼 만들면 이거 쓰면됨

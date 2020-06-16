@@ -5,6 +5,7 @@ from tqdm.notebook import tqdm
 
 from Fuction.function import *
 from Fuction.Image_Converter import *
+
 """
 A. 변환후 저장 경로가 반환된다면?
 1) 사운드 파일의 이름은 사용자 마음대로 설정할 수 있음(추후 시간있을 때 구현)
@@ -33,6 +34,7 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog):
     Sound_Path = ""  # 음성파일을 저장할 경로
     Temp_Path = []  # 음성파일을 저장할 경로를 임시로 저장
     i = 0  # 추가된 시각파일의 개수
+    Trans_list = []
 
     def __init__(self):
         super().__init__()
@@ -100,151 +102,160 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog):
 
     ##파일 변환 버튼 동작 메서드##
     def Push_TransFileButton(self):
+        err = 1
         self.SoundType = self.SoundTypeBox.currentText()  # 파일형식선택
         if self.SoundType == "File Format":
             self.warning_2()
+            err = 0
         if self.Sound_Path == "":
             self.warning_3()
+            err = 0
 
-        ###기능 구현 동작과 연결
-        if (self.File_Path[1] == 'PDF Files (*.pdf)'):
-            '''
-            print(self.File_Path[0])
-            transtext = read_pdf_file1(self.File_Path[0])
-            print(transtext)
-            transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
-            print(transpath)
-            g_tts(transtext, transpath, self.SoundType)
-            '''
-            print("This is PDF")
+        if err:
+            ###기능 구현 동작과 연결
+            if (self.File_Path[1] == 'PDF Files (*.pdf)'):
+                '''
+                print(self.File_Path[0])
+                transtext = read_pdf_file1(self.File_Path[0])
+                print(transtext)
+                transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
+                print(transpath)
+                g_tts(transtext, transpath, self.SoundType)
+                '''
+                print("This is PDF")
 
-            abs = self.File_Path
-            print("abs is", abs)
-            print("len is", len(abs))
+                abs = self.File_Path
+                print("abs is", abs)
+                print("len is", len(abs))
 
-            for j in range(0, len(abs)):
-                print("j is", j)
-                if (j % 2 == 0):
-                    print(self.File_Path[j])
-                    transtext1 = Image_Converter2(self.File_Path[j])
-                    print("This is text1", transtext1)
-                    print("Strlen is ", len(self.File_Path[j]))
-                    transpath2 = self.File_Path[j]
-                    print("Transpath2 is ", transpath2)
-                    # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                    transpath1 = transpath2[:-4].split('/')[-1]
+                for j in range(0, len(abs)):
+                    print("j is", j)
+                    if (j % 2 == 0):
+                        print(self.File_Path[j])
+                        transtext1 = Image_Converter2(self.File_Path[j])
+                        print("This is text1", transtext1)
+                        print("Strlen is ", len(self.File_Path[j]))
+                        transpath2 = self.File_Path[j]
+                        print("Transpath2 is ", transpath2)
+                        # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                        transpath1 = transpath2[:-4].split('/')[-1]
+                        self.Trans_list.append(transpath1 + '.' + self.SoundType)
+                        print(transpath1)
+                        g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType.lower())
+                        print("complete??")
+                    print("next")
+                self.progressBar.setValue(100)
 
-                    print(transpath1)
-                    g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType)
-                    print("complete??")
-                print("next")
 
+            elif (self.File_Path[1] == 'JPG Files (*.jpg)'):
+                '''
+                print(self.File_Path[0])
+                transtext1 = image_to_string1(self.File_Path[0])
+                print("This is text1", transtext1)
+                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                print(transpath1)
 
+                g_tts(transtext1, transpath1, self.SoundType)
+                '''
 
-        elif (self.File_Path[1] == 'JPG Files (*.jpg)'):
-            '''
-            print(self.File_Path[0])
-            transtext1 = image_to_string1(self.File_Path[0])
-            print("This is text1", transtext1)
-            transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-            print(transpath1)
-            
-            g_tts(transtext1, transpath1, self.SoundType)
-            '''
+                print("This is jpg")
+                abs = self.File_Path
+                print("abs is", abs)
+                print("len is", len(abs))
 
-            print("This is jpg")
-            abs=self.File_Path
-            print("abs is",abs)
-            print("len is",len(abs))
+                setval = 20
+                for j in range(0, len(abs)):
+                    print("j is", j)
+                    if (j % 2 == 0):
+                        print(self.File_Path[j])
+                        transtext1 = image_to_string1(self.File_Path[j])
+                        print("This is text1", transtext1)
+                        print("Strlen is ", len(self.File_Path[j]))
+                        transpath2 = self.File_Path[j]
+                        print("Transpath2 is ", transpath2)
+                        # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                        transpath1 = transpath2[:-4].split('/')[-1]  # 순수 파일 이름
+                        self.Trans_list.append(transpath1 + '.' + self.SoundType)
+                        print(transpath1)
+                        g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType.lower())
 
-            setval=50
-            for j in tqdm(range(0,len(abs))):
-                print("j is",j)
-                if(j%2==0):
-                    print(self.File_Path[j])
-                    transtext1 = image_to_string1(self.File_Path[j])
-                    print("This is text1",transtext1)
-                    print("Strlen is ",len(self.File_Path[j]))
-                    transpath2=self.File_Path[j]
-                    print("Transpath2 is ",transpath2)
-                    #transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                    transpath1=transpath2[:-4].split('/')[-1]
+                        print("complete??")
+                        setval += 20
+                        self.progressBar.setValue(setval)
+                        print(j, end=' ')
+                        print("progress")
+                    print("next")
+                self.progressBar.setValue(100)
 
-                    print(transpath1)
-                    g_tts(transtext1, self.Sound_Path+'/'+transpath1, self.SoundType)
+            elif (self.File_Path[1] == 'PNG Files (*.png)'):
+                print("This is png")
+                '''
+                print(self.File_Path[0])
+                transtext1 = image_to_string1(self.File_Path[0])
+                print(transtext1)
+                transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                print(transpath1)
+                g_tts(transtext1, transpath1, self.SoundType)
+                '''
+                abs = self.File_Path
+                setval = 20
+                for j in range(0, len(abs)):
+                    print("j is", j)
+                    if (j % 2 == 0):
+                        print(self.File_Path[j])
+                        transtext1 = image_to_string1(self.File_Path[j])
+                        print("This is text1", transtext1)
+                        print("Strlen is ", len(self.File_Path[j]))
+                        transpath2 = self.File_Path[j]
+                        print("Transpath2 is ", transpath2)
+                        # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                        transpath1 = transpath2[:-4].split('/')[-1]
+                        self.Trans_list.append(transpath1 + '.' + self.SoundType)
+                        print(transpath1)
 
-                    print("complete??")
-                    setval+=20
-                    self.progressBar.setValue(setval)
-                    print(j, end=' ')
-                    print("progress")
-                print("next")
-            self.progressBar.setValue(100)
+                        g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType.lower())
+                        print("complete??")
+                        setval += 20
+                        self.progressBar.setValue(setval)
 
-        elif (self.File_Path[1] == 'PNG Files (*.png)'):
-            print("This is png")
-            '''
-            print(self.File_Path[0])
-            transtext1 = image_to_string1(self.File_Path[0])
-            print(transtext1)
-            transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-            print(transpath1)
-            g_tts(transtext1, transpath1, self.SoundType)
-            '''
-            abs = self.File_Path
+                    print("next")
+                self.progressBar.setValue(100)
+                # docx 완료
+            elif (self.File_Path[1] == "DOCX Files (*.docx)"):
+                '''    
+                print(self.File_Path[0])
+                transtext = read_docx_file(self.File_Path[0])
+                print(transtext)
+                transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
+                print(transpath)
 
-            for j in range(0,len(abs)):
-                print("j is",j)
-                if(j%2==0):
-                    print(self.File_Path[j])
-                    transtext1 = image_to_string1(self.File_Path[j])
-                    print("This is text1",transtext1)
-                    print("Strlen is ",len(self.File_Path[j]))
-                    transpath2=self.File_Path[j]
-                    print("Transpath2 is ",transpath2)
-                    #transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                    transpath1=transpath2[:-4].split('/')[-1]
+                g_tts(transtext, transpath, self.SoundType)
+                '''
+                abs = self.File_Path
+                setval = 20
+                for j in range(0, len(abs)):
+                    print("j is", j)
+                    if (j % 2 == 0):
+                        print(self.File_Path[j])
+                        transtext1 = read_docx_file(self.File_Path[j])
+                        print("This is text1", transtext1)
+                        print("Strlen is ", len(self.File_Path[j]))
+                        transpath2 = self.File_Path[j]
+                        print("Transpath2 is ", transpath2)
+                        # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                        transpath1 = transpath2[:-5].split('/')[-1]
+                        self.Trans_list.append(transpath1 + '.' + self.SoundType)
+                        print(transpath1)
 
-                    print(transpath1)
+                        g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType.lower())
+                        print("complete??")
+                        setval += 20
+                        self.progressBar.setValue(setval)
 
-                    g_tts(transtext1, self.Sound_Path+'/'+transpath1, self.SoundType)
-                    print("complete??")
+                    print("next")
+                self.progressBar.setValue(100)
 
-                print("next")
-
-            # docx 완료
-        elif (self.File_Path[1] == "DOCX Files (*.docx)"):
-            '''    
-            print(self.File_Path[0])
-            transtext = read_docx_file(self.File_Path[0])
-            print(transtext)
-            transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
-            print(transpath)
-
-            g_tts(transtext, transpath, self.SoundType)
-            '''
-            abs = self.File_Path
-
-            for j in range(0, len(abs)):
-                print("j is", j)
-                if (j % 2 == 0):
-                    print(self.File_Path[j])
-                    transtext1 = read_docx_file(self.File_Path[j])
-                    print("This is text1", transtext1)
-                    print("Strlen is ", len(self.File_Path[j]))
-                    transpath2 = self.File_Path[j]
-                    print("Transpath2 is ", transpath2)
-                    # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-                    transpath1 = transpath2[:-5].split('/')[-1]
-
-                    print(transpath1)
-
-                    g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType)
-                    print("complete??")
-
-                print("next")
-
-        self.ShowFile()  # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
+            self.ShowFile()  # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
 
     ##불러온 파일 삭제 동작 메서드## #완료
     def Push_DeleteButton(self):
@@ -265,11 +276,9 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog):
 
     ##불러온 파일 표시하는 메서드 -> 파일변환버튼 함수에서 불러와야 될~
     def ShowFile(self):
-        self.Sound_Name = (self.PDF_name[:self.strlen - 4]) + '.' + self.SoundType  # file.WAV
-        print(self.SoundType)
-        print(self.Sound_Name)
-        self.Sound_FileList.addItem(self.Sound_Name)
-        print(self.Sound_FileList.currentItem())
+        for j in self.Trans_list:
+            self.Sound_FileList.addItem(j)
+            print(self.Sound_FileList.currentItem())
 
     def Preview(self):
         files = self.File_Path[0]

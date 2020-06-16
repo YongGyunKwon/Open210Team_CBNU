@@ -78,7 +78,7 @@ def Image_Converter2(filename):
         con.save('output'+str(i)+'.jpg', 'JPEG')
         a='output'+str(i)+'.jpg'
         img=Image.open('output')
-        text2=pytesseract.image_to_string(img,lang='kor'+eng)
+        text2=pytesseract.image_to_string(img,lang='kor+eng')
         text1.append(text2)
         i += 1
 

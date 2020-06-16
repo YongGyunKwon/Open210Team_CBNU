@@ -32,7 +32,7 @@ class Ui_Dialog(object):
         # Dialog.setModal(False)
         self.progressBar = QtWidgets.QProgressBar(Dialog)
         self.progressBar.setGeometry(QtCore.QRect(30, 350, 291, 23))
-        self.progressBar.setProperty("value", 24)
+        self.progressBar.setProperty("value", 0)
         self.progressBar.setTextVisible(False)
         self.progressBar.setObjectName("progressBar")
         self.TransFileBtn = QtWidgets.QPushButton(Dialog)
