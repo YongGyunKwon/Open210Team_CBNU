@@ -1,6 +1,7 @@
 import sys
 from PyQt5.QtWidgets import *
 import MainUI
+from tqdm.notebook import tqdm
 
 from Fuction.function import *
 from Fuction.Image_Converter import *
@@ -107,27 +108,90 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog):
 
         ###기능 구현 동작과 연결
         if (self.File_Path[1] == 'PDF Files (*.pdf)'):
-
+            '''
             print(self.File_Path[0])
             transtext = read_pdf_file1(self.File_Path[0])
             print(transtext)
             transpath = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 5]
             print(transpath)
             g_tts(transtext, transpath, self.SoundType)
+            '''
+            print("This is PDF")
+
+            abs = self.File_Path
+            print("abs is", abs)
+            print("len is", len(abs))
+
+            for j in range(0, len(abs)):
+                print("j is", j)
+                if (j % 2 == 0):
+                    print(self.File_Path[j])
+                    transtext1 = Image_Converter2(self.File_Path[j])
+                    print("This is text1", transtext1)
+                    print("Strlen is ", len(self.File_Path[j]))
+                    transpath2 = self.File_Path[j]
+                    print("Transpath2 is ", transpath2)
+                    # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                    transpath1 = transpath2[:-4].split('/')[-1]
+
+                    print(transpath1)
+                    g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType)
+                    print("complete??")
+                print("next")
+
+
 
         elif (self.File_Path[1] == 'JPG Files (*.jpg)'):
+            '''
             print(self.File_Path[0])
             transtext1 = image_to_string1(self.File_Path[0])
             print("This is text1", transtext1)
             transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
             print(transpath1)
-
+            
             g_tts(transtext1, transpath1, self.SoundType)
             '''
+
             print("This is jpg")
             abs=self.File_Path
             print("abs is",abs)
             print("len is",len(abs))
+
+            setval=50
+            for j in tqdm(range(0,len(abs))):
+                print("j is",j)
+                if(j%2==0):
+                    print(self.File_Path[j])
+                    transtext1 = image_to_string1(self.File_Path[j])
+                    print("This is text1",transtext1)
+                    print("Strlen is ",len(self.File_Path[j]))
+                    transpath2=self.File_Path[j]
+                    print("Transpath2 is ",transpath2)
+                    #transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                    transpath1=transpath2[:-4].split('/')[-1]
+
+                    print(transpath1)
+                    g_tts(transtext1, self.Sound_Path+'/'+transpath1, self.SoundType)
+
+                    print("complete??")
+                    setval+=20
+                    self.progressBar.setValue(setval)
+                    print(j, end=' ')
+                    print("progress")
+                print("next")
+            self.progressBar.setValue(100)
+
+        elif (self.File_Path[1] == 'PNG Files (*.png)'):
+            print("This is png")
+            '''
+            print(self.File_Path[0])
+            transtext1 = image_to_string1(self.File_Path[0])
+            print(transtext1)
+            transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+            print(transpath1)
+            g_tts(transtext1, transpath1, self.SoundType)
+            '''
+            abs = self.File_Path
 
             for j in range(0,len(abs)):
                 print("j is",j)
@@ -135,27 +199,22 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog):
                     print(self.File_Path[j])
                     transtext1 = image_to_string1(self.File_Path[j])
                     print("This is text1",transtext1)
-                    transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                    print("Strlen is ",len(self.File_Path[j]))
+                    transpath2=self.File_Path[j]
+                    print("Transpath2 is ",transpath2)
+                    #transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                    transpath1=transpath2[:-4].split('/')[-1]
+
                     print(transpath1)
-                    
-                    #g_tts(transtext1, transpath1, self.SoundType)
+
+                    g_tts(transtext1, self.Sound_Path+'/'+transpath1, self.SoundType)
                     print("complete??")
+
                 print("next")
-                '''
-
-        elif (self.File_Path[1] == 'PNG Files (*.png)'):
-            print("This is png")
-
-            print(self.File_Path[0])
-            transtext1 = image_to_string1(self.File_Path[0])
-            print(transtext1)
-            transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
-            print(transpath1)
-            g_tts(transtext1, transpath1, self.SoundType)
 
             # docx 완료
         elif (self.File_Path[1] == "DOCX Files (*.docx)"):
-
+            '''    
             print(self.File_Path[0])
             transtext = read_docx_file(self.File_Path[0])
             print(transtext)
@@ -163,6 +222,27 @@ class WindowClass(QMainWindow, MainUI.Ui_Dialog):
             print(transpath)
 
             g_tts(transtext, transpath, self.SoundType)
+            '''
+            abs = self.File_Path
+
+            for j in range(0, len(abs)):
+                print("j is", j)
+                if (j % 2 == 0):
+                    print(self.File_Path[j])
+                    transtext1 = read_docx_file(self.File_Path[j])
+                    print("This is text1", transtext1)
+                    print("Strlen is ", len(self.File_Path[j]))
+                    transpath2 = self.File_Path[j]
+                    print("Transpath2 is ", transpath2)
+                    # transpath1 = self.Sound_Path + "/" + self.PDF_name[:self.strlen - 4]
+                    transpath1 = transpath2[:-5].split('/')[-1]
+
+                    print(transpath1)
+
+                    g_tts(transtext1, self.Sound_Path + '/' + transpath1, self.SoundType)
+                    print("complete??")
+
+                print("next")
 
         self.ShowFile()  # 기능 구현 코드(파일 변환 코드)에서 변환이 완료되면 변환된 파일 표시
 
